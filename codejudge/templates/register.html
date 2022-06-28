@@ -16,7 +16,7 @@
       crossorigin="anonymous"
     />
 
-    <title>CodeJudge||Login</title>
+    <title>CodeJudge||Register</title>
     <style>
       .divider:after,
       .divider:before {
@@ -36,19 +36,16 @@
     </style>
   </head>
   <body>
-
-    
-{% if messages %}
-{% for message in messages %}   
-    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      {% endfor %} 
-      {% endif %}
-   
+    {% if messages %}
+    {% for message in messages %}   
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% endfor %} 
+          {% endif %}
 
     <section class="vh-100">
       <div class="container-fluid h-custom">
@@ -61,7 +58,7 @@
             />
           </div>
           <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-            <form class="form-sign-in" method="POST" action="/login">
+            <form class="form-sign-in" method="POST" action="/register">
 
                 {% csrf_token %}
 
@@ -89,6 +86,17 @@
                 
               </div>
 
+              <div class="form-outline mb-3">
+                <input
+                  name="confirmPassword"
+                  type="password"
+                  id="confirmPassword"
+                  class="form-control form-control-lg"
+                  placeholder="Confirm password"
+                />
+                
+              </div>
+
              
 
               <div class="text-center text-lg-start mt-4 pt-2">
@@ -97,11 +105,11 @@
                   class="btn btn-primary btn-lg"
                   style="padding-left: 2.5rem; padding-right: 2.5rem"
                 >
-                  Login
+                    Register
                 </button>
                 <p class="small fw-bold mt-2 pt-1 mb-0">
-                  Don't have an account?
-                  <a href="/register" class="link-danger">Register</a>
+                  Already have an account?
+                  <a href="/login" class="link-danger">Login</a>
                 </p>
               </div>
             </form>
