@@ -41,6 +41,10 @@ def registerUser(request):
         if password!=confirmPassword:
             messages.error(request,"Passwords do not match!")
             return redirect("/register")
+        if len(password)<8:
+            messages.error(request,"Password too small! Create a stronger password")
+            return redirect("/register")
+
        
         if User.objects.filter(username=username).count()!=0:
             messages.error(request,"Username already taken!")
