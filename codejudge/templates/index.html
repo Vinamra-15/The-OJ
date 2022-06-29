@@ -2,7 +2,50 @@
 
 {% block title %}Home{% endblock title %}
 {% block body %}
-This is my body 
-<a href='/leaderboard'>leaderboard</a>
+<h2 style="margin-left:40vw; margin-top:20px; margin-bottom:20px;">Problem Sets</h2>
+
+<table class="table table-striped m">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Problem Name</th>
+      <th scope="col">Difficulty</th>
+      <th scope="col">Submit Status</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {%for problem in problems%}
+    <tr>
+      <th scope="row">{{problem.id}}</th>
+      <td>{{ problem.name }}</td>
+      {% if problem.difficulty == 0 %}
+        <td style="color: green">EASY</td>
+      {% elif problem.difficulty is 1 %}
+        <td style="color: orange">MEDIUM</td>
+      {% elif problem.difficulty is 2 %}
+        <td style="color: red">HARD</td>
+      {% endif %}
+
+      {% if problem.verdict == 'ACCEPTED' %}
+        <td style="color: green"><strong>ACCEPTED</strong></td>
+      {% elif problem.verdict == 'REJECTED' %}
+        <td style="color: red"><strong>REJECTED</strong></td>
+      {% else %}
+        <td>--</td>
+      {% endif %}
+      
+      
+   
+      
+      
+        
+      
+    </tr>
+    {% endfor %}
+    
+  </tbody>
+</table>
+
 {% endblock body %}
 
