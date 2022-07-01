@@ -15,7 +15,8 @@ def index(request):
     problems = Problem.objects.all()
     # submitted_by_user = Submission.objects.filter(user=request.user.id)
     contextData = list(problems.values())
-
+   
+    
     contextDataIndex = 0
     for problem in problems:
         submitted_by_user = Submission.objects.filter(user=request.user.id,problem=problem)
@@ -52,6 +53,7 @@ def index(request):
         'problems': contextData,
         
     }
+    
     return render(request,'index.html',context)
 
 

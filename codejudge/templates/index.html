@@ -18,7 +18,7 @@
     {%for problem in problems%}
     <tr>
       <th scope="row">{{problem.id}}</th>
-      <td>{{ problem.name }}</td>
+      <td><a href='/problem/{{problem.id}}'>{{ problem.name }}</a></td>
       {% if problem.difficulty == 0 %}
         <td style="color: green">EASY</td>
       {% elif problem.difficulty is 1 %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}{{problem.name}}{% endblock title %}
+{% block body %}
+
+
+
+<div style="margin-left:10vw;margin-right:20vw;">
+    <div class="card-body">
+      <h3 class="card-title" style="margin-top:20px; margin-bottom:15px; margin-left:auto;">{{problem.name}}</h3>
+      <h6 class="card-subtitle mb-2 text-muted">Time Limit: {{problem.time_limit}} milliseconds</h6>
+      <p class="card-text">{{problem.description}}</p>
+      <p class="card-text"><strong>Input:</strong></p>
+      <p class="card-text">{{problem.input|linebreaks}}</p>
+      <p class="card-text"><strong>Output:</strong></p>
+      <p class="card-text">{{problem.output|linebreaks}}</p>
+      
+      
+    </div>
+  </div>
+
+  
+  <form method="post" action="/contact">
+    {% csrf_token %}
+    <div class="form-group">
+      <div class="mb-10" style="margin-left:10vw;margin-right:20vw;">
+        <label for="submittedCodeText" class="form-label">Code Area</label>
+        <textarea name="submittedCodeText" class="form-control" id="submittedCodeText" rows="3"></textarea>
+      </div>
+    </div>
+    
+    <button style="margin-left:70vw; type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+{% endblock body %}
+

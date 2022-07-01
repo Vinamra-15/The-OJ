@@ -16,6 +16,7 @@ class Problem(models.Model):
     input = models.TextField(default='', help_text='Input format')
     output = models.TextField(default='', help_text='Expected output format')
     time_limit = models.IntegerField(default=1000, help_text='in milliseconds')
+    
 
     def __str__(self):
         return self.name

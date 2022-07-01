@@ -15,13 +15,13 @@ class Submission(models.Model):
         ('TEST', 'testing')
     )
 
-    COMPILER_CHOICES = (('0','gcc'),)
+    COMPILER_CHOICES = (('0','python'),)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
     submitted_code = models.TextField()
     submission_time = models.DateTimeField(auto_now_add=True)
-    compiler = models.CharField(max_length=30, choices=COMPILER_CHOICES,default='gcc')
+    compiler = models.CharField(max_length=30, choices=COMPILER_CHOICES,default='python')
     verdict = models.CharField(max_length=4, choices=VERDICT_CHOICES, default='TEST')
 
     def __str__(self):

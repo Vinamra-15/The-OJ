@@ -21,6 +21,8 @@ urlpatterns = [
     path('', include('home.urls')),
     path('', include('user.urls')),
     path('', include('leaderboard.urls')),
+    path('problem/', include('problem.urls')),
+    
     
     
     
