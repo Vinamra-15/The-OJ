@@ -15,6 +15,8 @@ class Problem(models.Model):
     difficulty = models.IntegerField(choices=DIFFIULTY, default=0)
     input = models.TextField(default='', help_text='Input format')
     output = models.TextField(default='', help_text='Expected output format')
+    inputTestCases = models.TextField(default='', help_text='Input Test Cases')
+    outputTestCases = models.TextField(default='', help_text='Output Test Cases')
     time_limit = models.IntegerField(default=1000, help_text='in milliseconds')
     
 

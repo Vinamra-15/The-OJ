@@ -3,7 +3,16 @@
 {% block title %}{{problem.name}}{% endblock title %}
 {% block body %}
 
-
+{% if messages %}
+    {% for message in messages %}   
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% endfor %} 
+    {% endif %}
 
 <div style="margin-left:10vw;margin-right:20vw;">
     <div class="card-body">
@@ -34,3 +43,6 @@
 
 {% endblock body %}
 
+
+{% comment %} output = subprocess.run(cmd, capture_output=True, Shell =True,text=True, input=input, check=True, timeout=1) {% endcomment %}
+{% comment %} cmd =['g++','sol.cpp','-o','a.out'] {% endcomment %}
