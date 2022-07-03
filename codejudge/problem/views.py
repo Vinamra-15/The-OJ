@@ -57,6 +57,7 @@ def problem(request,prob_id):
         # saving submissions to db if accepted
         if(filecmp.cmp(outputTestCasesFileName,returnedOutputTestCasesFileName)):
             submission = Submission(submitted_code = submittedCodeText,user=request.user,problem=problem,verdict='AC',submission_time=datetime.now())
+            print(submission.submission_time)
             submission.save()
         else:
             submission = Submission(submitted_code = submittedCodeText,user=request.user,problem=problem,verdict='WA',submission_time=datetime.now())

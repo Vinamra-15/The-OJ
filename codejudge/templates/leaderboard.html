@@ -1,3 +1,43 @@
 {% extends 'base.html' %}
 
-{% block body %}This is leaderboard{% endblock body %}
+{% block title %}Leaderboard{% endblock title %}
+{% block body %}
+<h2 style="margin-left:40vw; margin-top:20px; margin-bottom:20px;">Latest Submissions</h2>
+
+<table class="table table-striped m">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">When(GMT)</th>
+      <th scope="col">Who</th>
+      <th scope="col">Problem</th>
+      <th scope="col">Language</th>
+      <th scope="col">Verdict</th>
+      
+
+    </tr>
+  </thead>
+  <tbody>
+    {%for sub in submissions%}
+    <tr>
+      <th scope="row">{{sub.id}}</th>
+      <td>{{ sub.submission_time }}</td>
+      <td>{{ sub.user.username }}</td>
+      <td>{{ sub.problem.name }}</td>
+      <td>{{ sub.compiler }}</td>
+
+      {% if sub.verdict == 'AC' %}
+        <td style="color: green"><strong>Accepted</strong></td>
+      {% else%}
+        <td style="color: red"><strong>Rejected</strong></td>
+      
+      {% endif %}
+      
+    </tr>
+    {% endfor %}
+    
+  </tbody>
+</table>
+
+{% endblock body %}
+
