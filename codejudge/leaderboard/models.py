@@ -15,7 +15,7 @@ class Submission(models.Model):
         ('TEST', 'testing')
     )
 
-    COMPILER_CHOICES = (('0','python'),)
+    COMPILER_CHOICES = (('0','python'),('1','c++'))
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     problem = models.ForeignKey(Problem, on_delete=models.CASCADE)

@@ -23,22 +23,29 @@
       <p class="card-text">{{problem.input|linebreaks}}</p>
       <p class="card-text"><strong>Output:</strong></p>
       <p class="card-text">{{problem.output|linebreaks}}</p>
-      
-      
     </div>
-  </div>
+</div>
 
   
   <form method="post" action="/problem/{{problem.id}}">
     {% csrf_token %}
     <div class="form-group">
       <div class="mb-10" style="margin-left:10vw;margin-right:20vw;">
-        <label for="submittedCodeText" class="form-label">Code Area</label>
+        <select id="language" name="language" class="form-select" style="margin-bottom:20px;">
+          <option>Python</option>
+          <option>C++</option>
+            
+        </select>
+        
+        
+          
+          
+        
         <textarea name="submittedCodeText" class="form-control" id="submittedCodeText" rows="3"></textarea>
       </div>
     </div>
     
-    <button style="margin-left:70vw; type="submit" class="btn btn-primary">Submit</button>
+    <button style="margin-left:70vw;" type="submit" class="btn btn-primary">Submit Code</button>
   </form>
 
 {% endblock body %}

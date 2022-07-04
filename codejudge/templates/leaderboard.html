@@ -24,7 +24,12 @@
       <td>{{ sub.submission_time }}</td>
       <td>{{ sub.user.username }}</td>
       <td>{{ sub.problem.name }}</td>
-      <td>{{ sub.compiler }}</td>
+
+      {% if sub.compiler == 'python' %}
+        <td>Python</td>
+      {% else%}
+        <td>C++</td>
+      {% endif %}
 
       {% if sub.verdict == 'AC' %}
         <td style="color: green"><strong>Accepted</strong></td>
