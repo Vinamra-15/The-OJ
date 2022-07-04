@@ -65,6 +65,7 @@ def problem(request,prob_id):
                     submission = Submission(submitted_code = submittedCodeText,compiler='python',user=request.user,problem=problem,verdict='AC',submission_time=datetime.now())
                     submission.save()
                 else:
+
                     submission = Submission(submitted_code = submittedCodeText,compiler='python',user=request.user,problem=problem,verdict='WA',submission_time=datetime.now())
                     submission.save()
 
@@ -128,6 +129,9 @@ def problem(request,prob_id):
                 os.remove(filename)
                 os.remove('executableCPPFile.exe')
             except:
+                returnedOutputTC.close()
+                os.remove(filename)
+                os.remove(returnedOutputTestCasesFileName)
                 submission = Submission(submitted_code = submittedCodeText,compiler='c++',user=request.user,problem=problem,verdict='WA',submission_time=datetime.now())
                 submission.save()
 
