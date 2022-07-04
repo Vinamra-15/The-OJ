@@ -44,35 +44,40 @@ def problem(request,prob_id):
 
             returnedOutputTC = open(returnedOutputTestCasesFileName,'w')
             
-            
-            process = subprocess.run(['python',filename],stdin=inputTC,stdout=returnedOutputTC,timeout=5)
-            
-            inputTC.close()
-            outputTC.close()
-            
-            #remove extra lines from the end of returned output file
-            with open(returnedOutputTestCasesFileName,'r') as f:
-                text = f.read().rstrip()
+            try:
+                process = subprocess.run(['python',filename],stdin=inputTC,stdout=returnedOutputTC,timeout=5)
+                
+                inputTC.close()
+                outputTC.close()
+                
+                #remove extra lines from the end of returned output file
+                with open(returnedOutputTestCasesFileName,'r') as f:
+                    text = f.read().rstrip()
 
 
-            with open(returnedOutputTestCasesFileName, 'w') as f:
-                f.write(text)
+                with open(returnedOutputTestCasesFileName, 'w') as f:
+                    f.write(text)
 
-            returnedOutputTC.close()
+                returnedOutputTC.close()
 
-            # saving submissions to db if accepted
-            if(filecmp.cmp(outputTestCasesFileName,returnedOutputTestCasesFileName)):
-                submission = Submission(submitted_code = submittedCodeText,compiler='python',user=request.user,problem=problem,verdict='AC',submission_time=datetime.now())
-                submission.save()
-            else:
+                # saving submissions to db if accepted
+                if(filecmp.cmp(outputTestCasesFileName,returnedOutputTestCasesFileName)):
+                    submission = Submission(submitted_code = submittedCodeText,compiler='python',user=request.user,problem=problem,verdict='AC',submission_time=datetime.now())
+                    submission.save()
+                else:
+                    submission = Submission(submitted_code = submittedCodeText,compiler='python',user=request.user,problem=problem,verdict='WA',submission_time=datetime.now())
+                    submission.save()
+
+
+
+                #remove extra generated files
+                os.remove(returnedOutputTestCasesFileName)
+                os.remove(filename)
+            except:
                 submission = Submission(submitted_code = submittedCodeText,compiler='python',user=request.user,problem=problem,verdict='WA',submission_time=datetime.now())
                 submission.save()
+                
 
-
-
-            #remove extra generated files
-            os.remove(returnedOutputTestCasesFileName)
-            os.remove(filename)
 
         #judginc c++ code
         else:
@@ -90,37 +95,41 @@ def problem(request,prob_id):
  
             returnedOutputTC = open(returnedOutputTestCasesFileName,'w')
             
-            process = subprocess.run(['g++',filename,'-o','executableCPPFile'], stdin = inputTC,stdout=returnedOutputTC, timeout=5)
-            process = subprocess.run(['executableCPPFile.exe','<',filename], stdin = inputTC,stdout=returnedOutputTC, timeout=5)
-            
-            inputTC.close()
-            
-            
-            
-            #remove extra lines from the end of returned output file
-            with open(returnedOutputTestCasesFileName,'r') as f:
-                text = f.read().rstrip()
+            try:
+                process = subprocess.run(['g++',filename,'-o','executableCPPFile.exe'], stdin = inputTC,stdout=returnedOutputTC, timeout=5)
+                process = subprocess.run(['executableCPPFile.exe','<',filename], stdin = inputTC,stdout=returnedOutputTC, timeout=5)
+                
+                inputTC.close()
+                
+                
+                
+                #remove extra lines from the end of returned output file
+                with open(returnedOutputTestCasesFileName,'r') as f:
+                    text = f.read().rstrip()
 
 
-            with open(returnedOutputTestCasesFileName, 'w') as f:
-                f.write(text)
+                with open(returnedOutputTestCasesFileName, 'w') as f:
+                    f.write(text)
 
-            returnedOutputTC.close()
+                returnedOutputTC.close()
 
-            # saving submissions to db if accepted
-            if(filecmp.cmp(outputTestCasesFileName,returnedOutputTestCasesFileName)):
-                submission = Submission(submitted_code = submittedCodeText,compiler='c++',user=request.user,problem=problem,verdict='AC',submission_time=datetime.now())
-                submission.save()
-            else:
+                # saving submissions to db if accepted
+                if(filecmp.cmp(outputTestCasesFileName,returnedOutputTestCasesFileName)):
+                    submission = Submission(submitted_code = submittedCodeText,compiler='c++',user=request.user,problem=problem,verdict='AC',submission_time=datetime.now())
+                    submission.save()
+                else:
+                    submission = Submission(submitted_code = submittedCodeText,compiler='c++',user=request.user,problem=problem,verdict='WA',submission_time=datetime.now())
+                    submission.save()
+
+
+                
+                #remove extra generated files
+                os.remove(returnedOutputTestCasesFileName)
+                os.remove(filename)
+                os.remove('executableCPPFile.exe')
+            except:
                 submission = Submission(submitted_code = submittedCodeText,compiler='c++',user=request.user,problem=problem,verdict='WA',submission_time=datetime.now())
                 submission.save()
-
-
-            
-            #remove extra generated files
-            os.remove(returnedOutputTestCasesFileName)
-            os.remove(filename)
-            os.remove('executableCPPFile.exe')
 
     
         
